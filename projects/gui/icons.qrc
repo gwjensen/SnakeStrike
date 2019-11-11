@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>snake_icon.jpg</file>
+        <file>snake_icon_inv.jpg</file>
+        <file>default_calibration_pattern.png</file>
+        <file>LabJackDigitalOutputCycle.py</file>
+        <file>ConvertCVDataXMLToCSV.py</file>
+    </qresource>
+</RCC>
