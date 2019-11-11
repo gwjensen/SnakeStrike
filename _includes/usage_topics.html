@@ -1,0 +1,21 @@
+{% include derive_family.html %}
+
+{% assign topics = siblings | where_exp:"p","p.layout == 'usage_page'" | sort: "title" %}
+
+{% if topics.size > 0 %}
+  <h3>Topics</h3>
+  <table class='associated-table'>
+    {% for p in topics %}
+      <tr>
+        <td class='name'>
+          <div><a href="{{ p.url | prepend: site.baseurl }}">{{ p.title | escape }}</a></div>
+        </td>
+        <td class='brief'>
+          {% if p.annotation %}
+            <span class='annotation'>({{p.annotation | join: ", "}})</span>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endif %}

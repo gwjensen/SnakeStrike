@@ -1,3 +1,0 @@
-CPP = g++
-CPPFLAGS = -g -O -Wall -I/usr/local/include/eigen3 -I../../chap4/srcs
-# CPPFLAGS = -O3 `pkg-config --cflags eigen3`

@@ -1,0 +1,43 @@
+initialized for camera 0 rms = 0.646547
+initialized camera matrix for camera 0 is
+[820.97058, 0, 312.94299;
+ 0, 821.02832, 228.02991;
+ 0, 0, 1]
+xi for camera 0 is []
+initialized for camera 1 rms = 0.842932
+initialized camera matrix for camera 1 is
+[992.71967, 0, 342.71057;
+ 0, 992.55219, 253.78484;
+ 0, 0, 1]
+xi for camera 1 is []
+initialized for camera 2 rms = 0.615072
+initialized camera matrix for camera 2 is
+[798.37347, 0, 340.02979;
+ 0, 799.45941, 236.36484;
+ 0, 0, 1]
+xi for camera 2 is []
+initial pose for camera 1 is 
+[0.99544066, 0.0047723539, 0.095263258, -283.03537;
+ -0.0036019497, 0.99991584, -0.012453869, 12.687775;
+ -0.095314674, 0.012053967, 0.99537426, 48.50708;
+ 0, 0, 0, 1]
+initial pose for camera 2 is 
+[0.93252403, -0.12041766, 0.34043875, -591.93713;
+ 0.12327647, 0.99228311, 0.013306826, -48.852966;
+ -0.339414, 0.02955915, 0.94017261, 87.973877;
+ 0, 0, 0, 1]
+final camera pose of camera 1 is
+[0.99587017, 0.0040811524, 0.09069676, -277.7547;
+ -0.0036230993, 0.99997985, -0.0052144467, 3.9452648;
+ -0.090716213, 0.0048643085, 0.99586493, 45.158512;
+ 0, 0, 0, 1]
+final camera pose of camera 2 is
+[0.93595433, -0.12202941, 0.33030033, -580.44202;
+ 0.12427015, 0.99214381, 0.01440971, -50.285221;
+ -0.32946384, 0.027559642, 0.94376588, 82.39682;
+ 0, 0, 0, 1]
+The camera extrinsics were calculated with an error of 0.472122
+
+Calibration Finished with exit code 0.
+
+

@@ -1,0 +1,35 @@
+{% include derive_family.html %}
+
+{% assign classes = siblings | where_exp:"p","p.layout == 'class'" | sort: "title" %}
+
+{% assign class_count = 0 %}
+{% for p in classes %}
+    {% if p.annotation contains "private" or p.annotation contains "protected" %}
+        {% assign class_count = class_count | plus:1 %}
+    {% endif %}
+{% endfor %}
+{% assign class_count = classes.size | minus: class_count %}
+{% if class_count > 0 %}
+  <h3>Classes</h3>
+  <table class='associated-table'>
+    {% for p in classes %}
+      <tr>
+        <td class='name'>
+          <div><a href="{{p.url | prepend: site.baseurl}}">{{ p.title | escape }}</a></div>
+        </td>
+        <td class='brief'>
+          {% if p.brief %}
+            {{ p.brief | markdownify }}
+          {% elsif p.description %}
+            {{ p.description | markdownify }}
+          {% else %}
+            {{ '_No details given_' | markdownify }}
+          {% endif %}
+          {% if p.annotation %}
+            <span class='annotation'>({{p.annotation | join: ", "}})</span>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endif %}

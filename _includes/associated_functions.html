@@ -1,0 +1,39 @@
+{% include derive_family.html %}
+
+{% assign functions = siblings | where_exp:"p","p.layout == 'function'" | sort: "title" %}
+
+{% assign func_count = 0 %}
+{% for f in functions %}
+    {% if f.annotation contains "private" or f.annotation contains "protected" %}
+        {% assign func_count = func_count | plus:1 %}
+    {% endif %}
+{% endfor %}
+{% assign func_count = functions.size | minus: func_count %}
+
+{% if func_count > 0 %}
+<h3>Functions</h3>
+<table class='associated-table'>
+  {% for p in functions %}
+      {% unless p.annotation contains "private" or p.annotation contains "protected" %}
+            <tr>
+                <td class='name'>
+                  <div><a href="{{ p.url | prepend: site.baseurl}}">{{ p.title | escape }}</a></div>
+                </td>
+                <td class='brief'>
+                    {% if p.annotation %}
+                        <span class='annotation'>({{p.annotation | join: ", "}})</span>
+                    {% endif %}
+                    {% if p.brief %}
+                        {{ p.brief | markdownify }}
+                    {% elsif p.description %}
+                        {{ p.description | markdownify }}
+                    {% else %}
+                        {{ '_No details given_' | markdownify }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endunless %}
+  {% endfor %}
+</table>
+{% endif %}
+

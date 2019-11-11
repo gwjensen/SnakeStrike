@@ -1,0 +1,969 @@
+open image calib/cam0/0-34.png successfully
+
+number of matched points 138
+
+number of filtered points 73
+
+open image calib/cam0/0-27.png successfully
+
+number of matched points 144
+
+number of filtered points 74
+
+open image calib/cam0/0-46.png successfully
+
+number of matched points 131
+
+number of filtered points 52
+
+open image calib/cam0/0-16.png successfully
+
+number of matched points 173
+
+number of filtered points 74
+
+open image calib/cam0/0-22.png successfully
+
+number of matched points 145
+
+number of filtered points 76
+
+open image calib/cam0/0-45.png successfully
+
+number of matched points 167
+
+number of filtered points 88
+
+open image calib/cam0/0-24.png successfully
+
+number of matched points 124
+
+number of filtered points 51
+
+open image calib/cam0/0-1.png successfully
+
+number of matched points 69
+
+number of filtered points 8
+image calib/cam0/0-1.png has too few matched points 
+
+open image calib/cam0/0-14.png successfully
+
+number of matched points 157
+
+number of filtered points 71
+
+open image calib/cam0/0-8.png successfully
+
+number of matched points 136
+
+number of filtered points 53
+
+open image calib/cam0/0-48.png successfully
+
+number of matched points 102
+
+number of filtered points 16
+image calib/cam0/0-48.png has too few matched points 
+
+open image calib/cam0/0-18.png successfully
+
+number of matched points 161
+
+number of filtered points 74
+
+open image calib/cam0/0-39.png successfully
+
+number of matched points 172
+
+number of filtered points 88
+
+open image calib/cam0/0-23.png successfully
+
+number of matched points 137
+
+number of filtered points 71
+
+open image calib/cam0/0-31.png successfully
+
+number of matched points 168
+
+number of filtered points 90
+
+open image calib/cam0/0-29.png successfully
+
+number of matched points 149
+
+number of filtered points 83
+
+open image calib/cam0/0-49.png successfully
+
+number of matched points 90
+
+number of filtered points 12
+image calib/cam0/0-49.png has too few matched points 
+
+open image calib/cam0/0-3.png successfully
+
+number of matched points 145
+
+number of filtered points 62
+
+open image calib/cam0/0-42.png successfully
+
+number of matched points 202
+
+number of filtered points 111
+
+open image calib/cam0/0-10.png successfully
+
+number of matched points 103
+
+number of filtered points 34
+image calib/cam0/0-10.png has too few matched points 
+
+open image calib/cam0/0-35.png successfully
+
+number of matched points 148
+
+number of filtered points 75
+
+open image calib/cam0/0-44.png successfully
+
+number of matched points 186
+
+number of filtered points 105
+
+open image calib/cam0/0-32.png successfully
+
+number of matched points 159
+
+number of filtered points 89
+
+open image calib/cam0/0-15.png successfully
+
+number of matched points 172
+
+number of filtered points 82
+
+open image calib/cam0/0-43.png successfully
+
+number of matched points 192
+
+number of filtered points 120
+
+open image calib/cam0/0-41.png successfully
+
+number of matched points 185
+
+number of filtered points 105
+
+open image calib/cam0/0-2.png successfully
+
+number of matched points 120
+
+number of filtered points 30
+image calib/cam0/0-2.png has too few matched points 
+
+open image calib/cam0/0-0.png successfully
+
+number of matched points 63
+
+number of filtered points 4
+image calib/cam0/0-0.png has too few matched points 
+
+open image calib/cam0/0-9.png successfully
+
+number of matched points 136
+
+number of filtered points 39
+image calib/cam0/0-9.png has too few matched points 
+
+open image calib/cam0/0-12.png successfully
+
+number of matched points 126
+
+number of filtered points 45
+
+open image calib/cam0/0-25.png successfully
+
+number of matched points 118
+
+number of filtered points 45
+
+open image calib/cam0/0-30.png successfully
+
+number of matched points 167
+
+number of filtered points 88
+
+open image calib/cam0/0-36.png successfully
+
+number of matched points 162
+
+number of filtered points 92
+
+open image calib/cam0/0-5.png successfully
+
+number of matched points 169
+
+number of filtered points 89
+
+open image calib/cam0/0-26.png successfully
+
+number of matched points 128
+
+number of filtered points 56
+
+open image calib/cam0/0-47.png successfully
+
+number of matched points 109
+
+number of filtered points 28
+image calib/cam0/0-47.png has too few matched points 
+
+open image calib/cam0/0-38.png successfully
+
+number of matched points 170
+
+number of filtered points 89
+
+open image calib/cam0/0-40.png successfully
+
+number of matched points 175
+
+number of filtered points 95
+
+open image calib/cam0/0-21.png successfully
+
+number of matched points 151
+
+number of filtered points 78
+
+open image calib/cam0/0-6.png successfully
+
+number of matched points 168
+
+number of filtered points 82
+
+open image calib/cam0/0-19.png successfully
+
+number of matched points 156
+
+number of filtered points 75
+
+open image calib/cam0/0-13.png successfully
+
+number of matched points 141
+
+number of filtered points 57
+
+open image calib/cam0/0-11.png successfully
+
+number of matched points 111
+
+number of filtered points 38
+image calib/cam0/0-11.png has too few matched points 
+
+open image calib/cam0/0-20.png successfully
+
+number of matched points 148
+
+number of filtered points 68
+
+open image calib/cam0/0-4.png successfully
+
+number of matched points 172
+
+number of filtered points 77
+
+open image calib/cam0/0-28.png successfully
+
+number of matched points 142
+
+number of filtered points 77
+
+open image calib/cam0/0-17.png successfully
+
+number of matched points 177
+
+number of filtered points 85
+
+open image calib/cam0/0-37.png successfully
+
+number of matched points 188
+
+number of filtered points 95
+
+open image calib/cam0/0-7.png successfully
+
+number of matched points 154
+
+number of filtered points 66
+
+open image calib/cam0/0-33.png successfully
+
+number of matched points 145
+
+number of filtered points 70
+
+initialized for camera 0 rms = 0.646547
+initialized camera matrix for camera 0 is
+[820.97058, 0, 312.94299;
+ 0, 821.02832, 228.02991;
+ 0, 0, 1]
+xi for camera 0 is []
+
+open image calib/cam1/1-23.png successfully
+
+number of matched points 134
+
+number of filtered points 73
+
+open image calib/cam1/1-10.png successfully
+
+number of matched points 116
+
+number of filtered points 59
+
+open image calib/cam1/1-5.png successfully
+
+number of matched points 209
+
+number of filtered points 128
+
+open image calib/cam1/1-21.png successfully
+
+number of matched points 138
+
+number of filtered points 78
+
+open image calib/cam1/1-39.png successfully
+
+number of matched points 138
+
+number of filtered points 76
+
+open image calib/cam1/1-17.png successfully
+
+number of matched points 176
+
+number of filtered points 107
+
+open image calib/cam1/1-34.png successfully
+
+number of matched points 139
+
+number of filtered points 76
+
+open image calib/cam1/1-25.png successfully
+
+number of matched points 125
+
+number of filtered points 68
+
+open image calib/cam1/1-38.png successfully
+
+number of matched points 131
+
+number of filtered points 69
+
+open image calib/cam1/1-6.png successfully
+
+number of matched points 199
+
+number of filtered points 130
+
+open image calib/cam1/1-29.png successfully
+
+number of matched points 159
+
+number of filtered points 92
+
+open image calib/cam1/1-32.png successfully
+
+number of matched points 151
+
+number of filtered points 88
+
+open image calib/cam1/1-0.png successfully
+
+number of matched points 59
+
+number of filtered points 4
+image calib/cam1/1-0.png has too few matched points 
+
+open image calib/cam1/1-22.png successfully
+
+number of matched points 143
+
+number of filtered points 84
+
+open image calib/cam1/1-35.png successfully
+
+number of matched points 147
+
+number of filtered points 83
+
+open image calib/cam1/1-8.png successfully
+
+number of matched points 137
+
+number of filtered points 62
+
+open image calib/cam1/1-16.png successfully
+
+number of matched points 144
+
+number of filtered points 86
+
+open image calib/cam1/1-20.png successfully
+
+number of matched points 143
+
+number of filtered points 81
+
+open image calib/cam1/1-31.png successfully
+
+number of matched points 167
+
+number of filtered points 102
+
+open image calib/cam1/1-1.png successfully
+
+number of matched points 97
+
+number of filtered points 43
+
+open image calib/cam1/1-47.png successfully
+
+number of matched points 84
+
+number of filtered points 8
+
+image calib/cam1/1-47.png has too few matched points 
+
+open image calib/cam1/1-48.png successfully
+
+number of matched points 73
+
+number of filtered points 5
+image calib/cam1/1-48.png has too few matched points 
+
+open image calib/cam1/1-2.png successfully
+
+number of matched points 137
+
+number of filtered points 71
+
+open image calib/cam1/1-18.png successfully
+
+number of matched points 154
+
+number of filtered points 86
+
+open image calib/cam1/1-4.png successfully
+
+number of matched points 158
+
+number of filtered points 93
+
+open image calib/cam1/1-12.png successfully
+
+number of matched points 126
+
+number of filtered points 60
+
+open image calib/cam1/1-26.png successfully
+
+number of matched points 138
+
+number of filtered points 72
+
+open image calib/cam1/1-14.png successfully
+
+number of matched points 151
+
+number of filtered points 77
+
+open image calib/cam1/1-40.png successfully
+
+number of matched points 141
+
+number of filtered points 81
+
+open image calib/cam1/1-45.png successfully
+
+number of matched points 117
+
+number of filtered points 57
+
+open image calib/cam1/1-19.png successfully
+
+number of matched points 150
+
+number of filtered points 86
+
+open image calib/cam1/1-37.png successfully
+
+number of matched points 151
+
+number of filtered points 80
+
+open image calib/cam1/1-9.png successfully
+
+number of matched points 116
+
+number of filtered points 63
+
+open image calib/cam1/1-24.png successfully
+
+number of matched points 124
+
+number of filtered points 64
+
+open image calib/cam1/1-41.png successfully
+
+number of matched points 163
+
+number of filtered points 93
+
+open image calib/cam1/1-33.png successfully
+
+number of matched points 157
+
+number of filtered points 82
+
+open image calib/cam1/1-49.png successfully
+
+number of matched points 72
+
+number of filtered points 14
+image calib/cam1/1-49.png has too few matched points 
+
+open image calib/cam1/1-36.png successfully
+
+number of matched points 161
+
+number of filtered points 87
+
+open image calib/cam1/1-11.png successfully
+
+number of matched points 129
+
+number of filtered points 67
+
+open image calib/cam1/1-15.png successfully
+
+number of matched points 145
+
+number of filtered points 78
+
+open image calib/cam1/1-30.png successfully
+
+number of matched points 153
+
+number of filtered points 85
+
+open image calib/cam1/1-28.png successfully
+
+number of matched points 151
+
+number of filtered points 85
+
+open image calib/cam1/1-44.png successfully
+
+number of matched points 167
+
+number of filtered points 99
+
+open image calib/cam1/1-3.png successfully
+
+number of matched points 148
+
+number of filtered points 85
+
+open image calib/cam1/1-13.png successfully
+
+number of matched points 130
+
+number of filtered points 65
+
+open image calib/cam1/1-43.png successfully
+
+number of matched points 178
+
+number of filtered points 127
+
+open image calib/cam1/1-7.png successfully
+
+number of matched points 151
+
+number of filtered points 77
+
+open image calib/cam1/1-42.png successfully
+
+number of matched points 176
+
+number of filtered points 102
+
+open image calib/cam1/1-46.png successfully
+
+number of matched points 96
+
+number of filtered points 34
+image calib/cam1/1-46.png has too few matched points 
+
+open image calib/cam1/1-27.png successfully
+
+number of matched points 140
+
+number of filtered points 68
+
+initialized for camera 1 rms = 0.842932
+initialized camera matrix for camera 1 is
+[992.71967, 0, 342.71057;
+ 0, 992.55219, 253.78484;
+ 0, 0, 1]
+xi for camera 1 is []
+
+open image calib/cam2/2-28.png successfully
+
+number of matched points 168
+
+number of filtered points 101
+
+open image calib/cam2/2-1.png successfully
+
+number of matched points 138
+
+number of filtered points 66
+
+open image calib/cam2/2-35.png successfully
+
+number of matched points 172
+
+number of filtered points 93
+
+open image calib/cam2/2-48.png successfully
+
+number of matched points 103
+
+number of filtered points 4
+image calib/cam2/2-48.png has too few matched points 
+
+open image calib/cam2/2-14.png successfully
+
+number of matched points 190
+
+number of filtered points 96
+
+open image calib/cam2/2-37.png successfully
+
+number of matched points 189
+
+number of filtered points 89
+
+open image calib/cam2/2-16.png successfully
+
+number of matched points 210
+
+number of filtered points 120
+
+open image calib/cam2/2-34.png successfully
+
+number of matched points 169
+
+number of filtered points 87
+
+open image calib/cam2/2-45.png successfully
+
+number of matched points 169
+
+number of filtered points 81
+
+open image calib/cam2/2-2.png successfully
+
+number of matched points 170
+
+number of filtered points 87
+
+open image calib/cam2/2-27.png successfully
+
+number of matched points 172
+
+number of filtered points 103
+
+open image calib/cam2/2-39.png successfully
+
+number of matched points 172
+
+number of filtered points 89
+
+open image calib/cam2/2-24.png successfully
+
+number of matched points 165
+
+number of filtered points 93
+
+open image calib/cam2/2-9.png successfully
+
+number of matched points 184
+
+number of filtered points 82
+
+open image calib/cam2/2-47.png successfully
+
+number of matched points 116
+
+number of filtered points 13
+image calib/cam2/2-47.png has too few matched points 
+
+open image calib/cam2/2-23.png successfully
+
+number of matched points 182
+
+number of filtered points 105
+
+open image calib/cam2/2-18.png successfully
+
+number of matched points 205
+
+number of filtered points 112
+
+open image calib/cam2/2-3.png successfully
+
+number of matched points 192
+
+number of filtered points 99
+
+open image calib/cam2/2-41.png successfully
+
+number of matched points 186
+
+number of filtered points 105
+
+open image calib/cam2/2-30.png successfully
+
+number of matched points 177
+
+number of filtered points 96
+
+open image calib/cam2/2-40.png successfully
+
+number of matched points 178
+
+number of filtered points 91
+
+open image calib/cam2/2-7.png successfully
+
+number of matched points 182
+
+number of filtered points 95
+
+open image calib/cam2/2-8.png successfully
+
+number of matched points 188
+
+number of filtered points 94
+
+open image calib/cam2/2-12.png successfully
+
+number of matched points 176
+
+number of filtered points 92
+
+open image calib/cam2/2-46.png successfully
+
+number of matched points 151
+
+number of filtered points 47
+
+open image calib/cam2/2-32.png successfully
+
+number of matched points 171
+
+number of filtered points 93
+
+open image calib/cam2/2-10.png successfully
+
+number of matched points 164
+
+number of filtered points 75
+
+open image calib/cam2/2-33.png successfully
+
+number of matched points 169
+
+number of filtered points 95
+
+open image calib/cam2/2-25.png successfully
+
+number of matched points 162
+
+number of filtered points 93
+
+open image calib/cam2/2-29.png successfully
+
+number of matched points 170
+
+number of filtered points 91
+
+open image calib/cam2/2-17.png successfully
+
+number of matched points 206
+
+number of filtered points 119
+
+open image calib/cam2/2-43.png successfully
+
+number of matched points 220
+
+number of filtered points 134
+
+open image calib/cam2/2-36.png successfully
+
+number of matched points 195
+
+number of filtered points 97
+
+open image calib/cam2/2-5.png successfully
+
+number of matched points 216
+
+number of filtered points 102
+
+open image calib/cam2/2-11.png successfully
+
+number of matched points 175
+
+number of filtered points 88
+
+open image calib/cam2/2-49.png successfully
+
+number of matched points 96
+
+number of filtered points 5
+image calib/cam2/2-49.png has too few matched points 
+
+open image calib/cam2/2-13.png successfully
+
+number of matched points 199
+
+number of filtered points 105
+
+open image calib/cam2/2-20.png successfully
+
+number of matched points 178
+
+number of filtered points 81
+
+open image calib/cam2/2-6.png successfully
+
+number of matched points 207
+
+number of filtered points 119
+
+open image calib/cam2/2-15.png successfully
+
+number of matched points 190
+
+number of filtered points 102
+
+open image calib/cam2/2-4.png successfully
+
+number of matched points 201
+
+number of filtered points 113
+
+open image calib/cam2/2-0.png successfully
+
+number of matched points 87
+
+number of filtered points 18
+image calib/cam2/2-0.png has too few matched points 
+
+open image calib/cam2/2-22.png successfully
+
+number of matched points 175
+
+number of filtered points 97
+
+open image calib/cam2/2-31.png successfully
+
+number of matched points 174
+
+number of filtered points 96
+
+open image calib/cam2/2-26.png successfully
+
+number of matched points 177
+
+number of filtered points 95
+
+open image calib/cam2/2-19.png successfully
+
+number of matched points 180
+
+number of filtered points 97
+
+open image calib/cam2/2-44.png successfully
+
+number of matched points 206
+
+number of filtered points 115
+
+open image calib/cam2/2-21.png successfully
+
+number of matched points 162
+
+number of filtered points 84
+
+open image calib/cam2/2-42.png successfully
+
+number of matched points 215
+
+number of filtered points 116
+
+open image calib/cam2/2-38.png successfully
+
+number of matched points 190
+
+number of filtered points 89
+
+initialized for camera 2 rms = 0.615072
+initialized camera matrix for camera 2 is
+[798.37347, 0, 340.02979;
+ 0, 799.45941, 236.36484;
+ 0, 0, 1]
+xi for camera 2 is []
+
+initial pose for camera 1 is 
+[0.99544066, 0.0047723539, 0.095263258, -283.03537;
+ -0.0036019497, 0.99991584, -0.012453869, 12.687775;
+ -0.095314674, 0.012053967, 0.99537426, 48.50708;
+ 0, 0, 0, 1]
+initial pose for camera 2 is 
+[0.93252403, -0.12041766, 0.34043875, -591.93713;
+ 0.12327647, 0.99228311, 0.013306826, -48.852966;
+ -0.339414, 0.02955915, 0.94017261, 87.973877;
+ 0, 0, 0, 1]
+
+final camera pose of camera 1 is
+[0.99587017, 0.0040811524, 0.09069676, -277.7547;
+ -0.0036230993, 0.99997985, -0.0052144467, 3.9452648;
+ -0.090716213, 0.0048643085, 0.99586493, 45.158512;
+ 0, 0, 0, 1]
+final camera pose of camera 2 is
+[0.93595433, -0.12202941, 0.33030033, -580.44202;
+ 0.12427015, 0.99214381, 0.01440971, -50.285221;
+ -0.32946384, 0.027559642, 0.94376588, 82.39682;
+ 0, 0, 0, 1]
+
+
+
+The camera extrinsics were calculated with an error of 0.472122
+
+
+
+Calibration Finished with exit code 0.
