@@ -11,6 +11,27 @@
 
 //This image is expected to be either RGB or BGR
 
+struct SmtImageThresholdInfo
+{
+   uint32_t max_num_points;
+   uint32_t noise_filter_size;
+   uint32_t noise_iterations;
+   uint32_t noise_threshold;
+
+   SmtImageThresholdInfo() : max_num_points(0),
+                             noise_filter_size(0),
+                             noise_iterations(0),
+                             noise_threshold(0) {}
+   SmtImageThresholdInfo( uint32_t iMaxPoints,
+                          uint32_t iFiltSize,
+                          uint32_t iIter,
+                          uint32_t iThresh )
+                          : max_num_points(iMaxPoints),
+                            noise_filter_size(iFiltSize),
+                            noise_iterations(iIter),
+                            noise_threshold(iThresh) {}
+};
+
 class SmtImage : public cv::Mat
 {
     public:
@@ -48,7 +69,7 @@ class SmtImage : public cv::Mat
 
         void Threshold( const cv::Scalar& iLowerb,
                         const cv::Scalar& iUpperb,
-                        const cv::Scalar& iNoiseThresholdInfo );
+                        const SmtImageThresholdInfo& iExtraThresholdInfo );
 
         void Threshold( const uint32_t iFilterSize,
                                   const uint32_t iNumIterations,
@@ -56,7 +77,7 @@ class SmtImage : public cv::Mat
                                   const uint32_t iLowerNoiseThreshold,
                                   const cv::Scalar& iLeftb,
                                   const cv::Scalar& iRightb,
-                                  cv::Mat& oMat );
+                                  cv::Mat& oMat);
 
         //rotate image by arbitrary degree ( very expensive)
 //        SmtImage Rotate( double iRotationAngle );
@@ -91,6 +112,16 @@ class SmtImage : public cv::Mat
         //I have to disallow this equals because people will not keep track of BGR vs RBG.
         SmtImage& operator=(const cv::Mat& other); // copy assignment
 
+        void FindContours(  const unsigned int iMaxNumPoints, cv::Mat& ioBinaryImage, std::vector<PixelCluster>& oGroupedPoints ) const;
+
+        void FindContours( const unsigned int iMaxNumPoints, cv::Mat& ioBinaryImage );
+
+        void ThresholdToBinary( const uint32_t iFilterSize,
+                                  const uint32_t iNumIterations,
+                                  const uint32_t iLowerNoiseThreshold,
+                                  const cv::Scalar& iLeftb,
+                                  const cv::Scalar& iRightb,
+                                  cv::Mat& oMat);
 
         std::string mLocation; //Will be empty when the image is not loaded from saved file
         std::string mFileSuffix; //Will be empty when the image is not loaded from saved file

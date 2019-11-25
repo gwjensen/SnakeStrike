@@ -17,9 +17,7 @@ void ThresholdImages( const ImageSet& iImagesSet,
                       bool (*CancelFunc)(),
                       const cv::Scalar& iLowerb,
                       const cv::Scalar& iUpperb,
-                      const int noiseFilterSize,
-                      const int noiseIterations,
-                      const int noiseThreshold );
+                      const SmtImageThresholdInfo& iExtraThresholdInfo );
 
 //void thresholdImages( ImageSet& ioImagesSet, const cv::Scalar& iLowerb, const cv::Scalar& iUpperb );
 

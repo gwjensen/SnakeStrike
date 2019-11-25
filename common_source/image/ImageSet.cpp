@@ -60,7 +60,7 @@ void ThresholdImageTimestepGroup(const uint32_t iStartTimestep,
                                  bool (*CancelFunc)(),
                                  const cv::Scalar& iLowerb,
                                  const cv::Scalar& iUpperb,
-                                 const cv::Scalar iNoiseThresholdInfo)
+                                 const SmtImageThresholdInfo& iExtraThresholdInfo)
 {
     for (uint32_t j = iStartTimestep; j < iEndTimestep; ++j)
     {
@@ -68,7 +68,7 @@ void ThresholdImageTimestepGroup(const uint32_t iStartTimestep,
         for (uint32_t i = 0; i < iImagesSet[j].size(); ++i)
         { //camera #
             SmtImage new_image( iImagesSet[j][i] );
-            new_image.Threshold( iLowerb, iUpperb, iNoiseThresholdInfo );
+            new_image.Threshold( iLowerb, iUpperb, iExtraThresholdInfo );
             timestep_images.push_back( new_image );
         }
         oImagesSet[j] = timestep_images;
@@ -91,9 +91,7 @@ void ThresholdImages( const ImageSet& iImagesSet,
                       bool (*CancelFunc)(),
                       const cv::Scalar& iLowerb,
                       const cv::Scalar& iUpperb,
-                      const int iNoiseFilterSize,
-                      const int iNoiseIterations,
-                      const int iNoiseThreshold)
+                      const SmtImageThresholdInfo& iExtraThresholdInfo )
 {
     //oImagesSet.clear();
     //::TRICKY:: We have to do this in order to make sure the cv::Mat objects get deleted.
@@ -115,7 +113,7 @@ void ThresholdImages( const ImageSet& iImagesSet,
                                    CancelFunc,
                                    boost::ref( iLowerb ),
                                    boost::ref( iUpperb ),
-                                   cv::Scalar( iNoiseFilterSize, iNoiseIterations, iNoiseThreshold) ) );
+                                   boost::ref( iExtraThresholdInfo) ) );
         j += num_timesteps_per_thread;
     }
 }
@@ -325,7 +323,7 @@ void GetPixelClusters( const ImageSet& iImagesSet,
 
     oClusterSet.clear();
     oClusterSet.resize( iImagesSet.size() );
-    ThreadPool pool( 1/*NUM_THREADS_IN_POOL*/ );
+    ThreadPool pool( NUM_THREADS_IN_POOL );
     uint32_t num_timesteps_per_thread = NUM_TIMESTEPS_PER_THREAD;
 //    std::cout << "Showing image" << std::endl;
 //    cv::namedWindow( "GetPixelClusters", CV_WINDOW_AUTOSIZE | CV_GUI_NORMAL | CV_WINDOW_KEEPRATIO);

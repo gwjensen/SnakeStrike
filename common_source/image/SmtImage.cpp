@@ -261,8 +261,19 @@ void SmtImage::BlobDetection()
 
 void SmtImage::Threshold( const cv::Scalar& iLowerb,
                         const cv::Scalar& iUpperb,
-                        const cv::Scalar& iNoiseThresholdInfo)
+                        const SmtImageThresholdInfo& iInfo)
 {
+    cv::Mat tmp_mat;
+    Threshold( iInfo.noise_filter_size,
+               iInfo.noise_iterations,
+               iInfo.max_num_points,
+               iInfo.noise_threshold,
+               iLowerb,
+               iUpperb,
+               tmp_mat);
+    *this = tmp_mat.clone();
+    ///////////////////////////////////////////////////////////////////////////////////
+    /*
     //cv::Mat gammaCorrectedImage;
     // Convert input image to HSV
     //cv::Mat tmp_image;
@@ -359,133 +370,16 @@ void SmtImage::Threshold( const cv::Scalar& iLowerb,
     //void HoughCircles(cv::InputArray image, OutputArray circles, int method, double dp, double minDist, double param1=100, double param2=100, int minRadius=0, int maxRadius=0 )
     //HoughCircles(oImage, circles, CV_HOUGH_GRADIENT, 1, 5, 100, 5, 3, 30);
 
-    // Loop over all detected circles and outline them on the original image
-    /*if(circles.size() > 0){
-        for(size_t current_circle = 0; current_circle < circles.size(); ++current_circle) {
-            Point center(round(circles[current_circle][0]), round(circles[current_circle][1]));
-            int radius = round(circles[current_circle][2]);
+    */
+    //////////////////////////////////////////////////////////////////////////////////////////////////
 
-            circle(iImageCopy, center, radius, cv::Scalar(0, 255, 0), 5);
-        }
-    }
-    else{
-        std::fprintf(stderr, "No HoughCircles found.\n");
-    }*/
-    //END_DEBUG
-
-    //DEBUG print out the values of the pixels being found.
-    /*cv::MatIterator_<uint8_t> itMask = oImage.begin<uint8_t>();
-    cv::MatConstIterator_<cv::Vec3b> itImage = iImage.begin<cv::Vec3b>();
-    cv::MatIterator_<cv::Vec3b> itGamma = hsv_image.begin<cv::Vec3b>();
-
-    bool foundPixel = false;
-    for(; itMask != oImage.end<uint8_t>(); ++itMask, ++itImage, ++itGamma){
-        if( *itMask != 0 ){
-            foundPixel = true;
-            std::fprintf(stderr, "found pixel within range: (%d,%d,%d), gamma:(%d,%d,%d), location: (%d,%d)\n", (*itImage)[0], (*itImage)[1], (*itImage)[2], (*itGamma)[0], (*itGamma)[1], (*itGamma)[2], itImage.pos().x, itImage.pos().y);
-        }
-    }
-    if( !foundPixel ){
-        std::fprintf(stderr, "didn't find any pixels of interest in this image...\n");
-    }*/
-    //END_DEBUG print
 }
 
-void SmtImage::Threshold( const uint32_t iFilterSize,
-                          const uint32_t iNumIterations,
-                          const uint32_t iMaxNumPoints,
-                          const uint32_t iLowerNoiseThreshold,
-                          const cv::Scalar& iLeftb,
-                          const cv::Scalar& iRightb,
-                          cv::Mat& oMat )
+void SmtImage::FindContours( const unsigned int iMaxNumPoints, cv::Mat& ioBinaryImage )
 {
-//    int size = height * width * 3;
-//    uint8_t* cv_tmp = new uint8_t[ size ];
-
-//    Pylon::CImageFormatConverter fc;
-//    fc.OutputPixelFormat = Pylon::PixelType_BGR8packed;
-//    fc.Convert(cv_tmp,
-//               size,
-//               (uint8_t*)pyImage.GetBuffer(),
-//               size, Pylon::PixelType_RGB8packed,
-//               width,
-//               height,
-//               0/*paddind*/,
-//               Pylon::ImageOrientation_TopDown );
-
-//    cv::Mat cv_img = cv::Mat(height, width, CV_8UC3,cv_tmp);
-//    if ( oMat.IsEmpty() ){
-        //cv::Mat gammaCorrectedImage;
-        // Convert input image to HSV
-
-        //cv::medianBlur( cv_img, tmp_image, 5 ); //smoothes out the image with 5x5 filter
-        //GammaCorrection(tmp_image, gammaCorrectedImage, .5);
-        //cv::imshow( "original", cv_img);
-        //cv::waitKey( 0 );
-
-
-    ///Need to check for RGB vs BGR
-        cv::Mat hsv_image;
-        assert( !this->empty());
-
-        if ( mIsRGB ){
-            cv::cvtColor( *this, hsv_image, cv::COLOR_RGB2HSV );
-        }
-        else{
-            cv::cvtColor( *this, hsv_image, cv::COLOR_BGR2HSV );
-        }
-
-
-        cv::Mat tmpMask;
-        if( iLeftb[0] < iRightb[0] ){ //logic to handle red values, i.e. values that cross over zero on the color wheel
-            cv::Mat tmpBound;
-            cv::inRange( hsv_image,
-                         cv::Scalar(0, iLeftb[1], iLeftb[2]),
-                         cv::Scalar(iLeftb[0]/2, iRightb[1], iRightb[2]),
-                         tmpBound ); //ex iLeftb = cv::Scalar(0,125,0)
-            cv::inRange( hsv_image,
-                         cv::Scalar(iRightb[0]/2, iLeftb[1], iLeftb[2]),
-                         cv::Scalar(360/2, iRightb[1], iRightb[2]),
-                         tmpMask ); //ex iLeftb = cv::Scalar(0,125,0)
-            cv::addWeighted( tmpBound, 1.0, tmpMask, 1.0, 0.0, tmpMask );
-        }
-        else{
-            //Have to swap left and right hue values as inRange counts upwards
-            cv::inRange( hsv_image,
-                         cv::Scalar( iRightb[0]/2, iLeftb[1], iLeftb[2] ),
-                         cv::Scalar( iLeftb[0]/2, iRightb[1], iRightb[2] ),
-                        tmpMask ); //ex iLeftb = cv::Scalar(0,125,0)
-        }
-
-
-        //Filter out parts of the image with high intensity light reflections
-        cv::Scalar maskOthersLowerb( 0, 0, 180);
-        //cv::Scalar maskOthersUpperb( 360, 30, 255);
-        cv::Scalar maskOthersUpperb( 0, 0, 180);
-        //cv::Scalar maskOthersLowerb( 0, 0, 0);
-        //cv::Scalar maskOthersUpperb( 0, 0, 0);
-        cv::Mat tmpMaskOther;
-        cv::inRange( hsv_image, maskOthersLowerb, maskOthersUpperb, tmpMaskOther );
-        //cv::inRange( iImage, cv::Scalar( 230,230,230 ), cv::Scalar(255,255,255), tmpMaskOther );
-
-
-        cv::bitwise_not( tmpMaskOther, tmpMaskOther );
-        //cv::imshow("tmpMaskOther", tmpMaskOther);
-        //cv::waitKey( 0 );
-        cv::Mat tmp;
-        cv::Mat tmp_image;
-
-        tmpMask.copyTo( tmp, tmpMaskOther );
-        //cv::imshow("tmp", tmp);
-        //cv::waitKey(0);
-        //Noise reduction code ---
-        ///@todo should be user specified as it is very variable on the data collection how much color noise there is....
-        //These thresholding operations are fine as we are currently dealing with a 1-d mask for the color we were searching for
-        for( uint32_t i = 0; i < iNumIterations; ++i ){
-            cv::blur( tmp, tmp_image, cv::Size(iFilterSize, iFilterSize), cv::Point(-1, -1) );
-            cv::threshold( tmp_image, tmp, iLowerNoiseThreshold, 255, cv::THRESH_BINARY );
-        }
-
+    //::NOTE:: This function at FindContours below are almost identical except for one section. I know this is
+    // crappy code, but make sure these two functions stay in lock-step when making changes....or just write
+    //these functions better :)
 //        +--------+----+----+----+----+------+------+------+------+
 //        |        | C1 | C2 | C3 | C4 | C(5) | C(6) | C(7) | C(8) |
 //        +--------+----+----+----+----+------+------+------+------+
@@ -497,28 +391,227 @@ void SmtImage::Threshold( const uint32_t iFilterSize,
 //        | CV_32F |  5 | 13 | 21 | 29 |   37 |   45 |   53 |   61 |
 //        | CV_64F |  6 | 14 | 22 | 30 |   38 |   46 |   54 |   62 |
 //        +--------+----+----+----+----+------+------+------+------+
-        int count_black = cv::countNonZero(tmp == 0);
-        if( tmp.type() < 7 && count_black > (tmp.cols * tmp.rows)/2){
+        int count_black = cv::countNonZero(ioBinaryImage == 0);
+        if( ioBinaryImage.type() < 7 && count_black > (ioBinaryImage.cols * ioBinaryImage.rows)/2)
+        {
             //Show the contours for the pixel groups
             std::vector< std::vector< cv::Point > > contours;
             std::vector< cv::Vec4i > hierarchy;
 
-            cv::findContours( tmp, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_NONE );
+            cv::findContours( ioBinaryImage, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_NONE );
 
-            tmp = cv::Mat::zeros( cv::Size( tmp.cols, tmp.rows ), tmp.type() );
+            ioBinaryImage = cv::Mat::zeros( cv::Size( ioBinaryImage.cols, ioBinaryImage.rows ), ioBinaryImage.type() );
             // sort contours biggest first
             std::sort(contours.begin(), contours.end(), CompareContourAreas);
 
             std::vector< std::vector<cv::Point> > hulls(iMaxNumPoints);
-            for( unsigned int i = 0; i < contours.size() && i < iMaxNumPoints; ++i ){
+            for( unsigned int i = 0; i < contours.size() && i < iMaxNumPoints; ++i )
+            {
                 // Initialize the contour with the convex hull points
                 cv::convexHull(cv::Mat(contours[i]), hulls[i]);
 
                 // And draw any found contours, filled
-                cv::drawContours(tmp, hulls, i/*-1allcontours*/, 255, CV_FILLED);
+                cv::drawContours(ioBinaryImage, hulls, i/*-1allcontours*/, 255, CV_FILLED);
 
             }
         }
+}
+
+
+void SmtImage::FindContours(  const unsigned int iMaxNumPoints, cv::Mat& oBinaryImage, std::vector<PixelCluster>& oGroupedPoints ) const
+{
+    //::NOTE:: This function at FindContours above are almost identical except for one section. I know this is
+    // crappy code, but make sure these two functions stay in lock-step when making changes....or just write
+    //these functions better :)
+//        +--------+----+----+----+----+------+------+------+------+
+//        |        | C1 | C2 | C3 | C4 | C(5) | C(6) | C(7) | C(8) |
+//        +--------+----+----+----+----+------+------+------+------+
+//        | CV_8U  |  0 |  8 | 16 | 24 |   32 |   40 |   48 |   56 |
+//        | CV_8S  |  1 |  9 | 17 | 25 |   33 |   41 |   49 |   57 |
+//        | CV_16U |  2 | 10 | 18 | 26 |   34 |   42 |   50 |   58 |
+//        | CV_16S |  3 | 11 | 19 | 27 |   35 |   43 |   51 |   59 |
+//        | CV_32S |  4 | 12 | 20 | 28 |   36 |   44 |   52 |   60 |
+//        | CV_32F |  5 | 13 | 21 | 29 |   37 |   45 |   53 |   61 |
+//        | CV_64F |  6 | 14 | 22 | 30 |   38 |   46 |   54 |   62 |
+//        +--------+----+----+----+----+------+------+------+------+
+
+        int count_black = cv::countNonZero(*this == 0);
+
+        //Show the contours for the pixel groups
+        std::vector< std::vector< cv::Point > > contours;
+        std::vector< cv::Vec4i > hierarchy;
+
+        //We assume here that we have a thresholded image, its just has 3 channels and the first
+        //channel has the info we want.
+        if (this->type() < 7 && count_black > (this->cols * this->rows)/2)
+        {
+            cv::findContours( *this, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_NONE );
+        }
+        else if (this->type() > 7 && count_black > (this->cols * this->rows)/2)
+        {
+            std::vector<Mat> channels(3);
+            cv::split(*this, channels);
+            oBinaryImage = channels[0];
+            cv::findContours( oBinaryImage, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_NONE );
+        }
+        else
+        {
+            std::cerr << "Image not in expected format." << std::endl;
+            return;
+        }
+        oBinaryImage = cv::Mat::zeros( cv::Size( this->cols, this->rows ), this->type() );
+
+        // sort contours biggest first
+        std::sort(contours.begin(), contours.end(), CompareContourAreas);
+
+        std::vector< std::vector<cv::Point> > hulls(iMaxNumPoints);
+        for( unsigned int i = 0; i < contours.size() && i < iMaxNumPoints; ++i )
+        {
+            // Initialize the contour with the convex hull points
+            cv::convexHull(cv::Mat(contours[i]), hulls[i]);
+
+            // And draw any found contours, filled
+            cv::drawContours(oBinaryImage, hulls, i/*-1allcontours*/, 255, CV_FILLED);
+
+            //////////////////////////////////////////////////////////////
+            cv::Mat tmp = cv::Mat::zeros( oBinaryImage.size(), CV_8UC1 );
+            cv::drawContours(tmp, hulls, i/*-1allcontours*/, 255, CV_FILLED);
+
+//            cv::namedWindow( "GetPixelClusters", CV_WINDOW_AUTOSIZE | CV_GUI_NORMAL | CV_WINDOW_KEEPRATIO);
+//            cv::imshow("GetPixelClusters", tmp );
+
+            PixelCluster cluster;
+//            for ( uint32_t point = 0; point < hulls.size(); ++point)
+//            {
+//                SmtPixel new_pixel(cv::Point2d(hulls[i][point].x, hulls[i][point].y), mCam);
+//                cluster.Add( new_pixel );
+//            }
+            for (int r = 0; r < tmp.rows; ++r)
+            {
+                for (int c = 0; c < tmp.cols; ++c)
+                {
+                    if (tmp.at<uchar>(r,c) == 255)
+                    {
+                        SmtPixel new_pixel( cv::Point2d(c,r), mCam );
+                        cluster.Add( new_pixel );
+                    }
+                }
+            }
+            if (cluster.Size() > 0)
+            {
+                oGroupedPoints.push_back( cluster );
+            }
+
+        }
+
+}
+
+void SmtImage::ThresholdToBinary( const uint32_t iFilterSize,
+                                  const uint32_t iNumIterations,
+                                  const uint32_t iLowerNoiseThreshold,
+                                  const cv::Scalar& iLeftb,
+                                  const cv::Scalar& iRightb,
+                                  cv::Mat& oMat)
+{
+
+
+    ///::TODO:: Need to check for RGB vs BGR
+
+
+    cv::Mat hsv_image;
+    assert( !this->empty());
+
+    if ( mIsRGB ){
+        cv::cvtColor( *this, hsv_image, cv::COLOR_RGB2HSV );
+    }
+    else{
+        cv::cvtColor( *this, hsv_image, cv::COLOR_BGR2HSV );
+    }
+
+
+    cv::Mat tmpMask;
+    if( iLeftb[0] < iRightb[0] )
+    { //logic to handle red values, i.e. values that cross over zero on the color wheel
+        cv::Mat tmpBound;
+        cv::inRange( hsv_image,
+                     cv::Scalar(0, iLeftb[1], iLeftb[2]),
+                     cv::Scalar(iLeftb[0]/2, iRightb[1], iRightb[2]),
+                     tmpBound ); //ex iLeftb = cv::Scalar(0,125,0)
+        cv::inRange( hsv_image,
+                     cv::Scalar(iRightb[0]/2, iLeftb[1], iLeftb[2]),
+                     cv::Scalar(360/2, iRightb[1], iRightb[2]),
+                     tmpMask ); //ex iLeftb = cv::Scalar(0,125,0)
+        cv::addWeighted( tmpBound, 1.0, tmpMask, 1.0, 0.0, tmpMask );
+    }
+    else
+    {
+        //Have to swap left and right hue values as inRange counts upwards
+        cv::inRange( hsv_image,
+                     cv::Scalar( iRightb[0]/2, iLeftb[1], iLeftb[2] ),
+                     cv::Scalar( iLeftb[0]/2, iRightb[1], iRightb[2] ),
+                    tmpMask ); //ex iLeftb = cv::Scalar(0,125,0)
+    }
+
+
+    //Filter out parts of the image with high intensity light reflections
+    cv::Scalar maskOthersLowerb( 0, 0, 180);
+    //cv::Scalar maskOthersUpperb( 360, 30, 255);
+    cv::Scalar maskOthersUpperb( 0, 0, 180);
+    //cv::Scalar maskOthersLowerb( 0, 0, 0);
+    //cv::Scalar maskOthersUpperb( 0, 0, 0);
+    cv::Mat tmpMaskOther;
+    cv::inRange( hsv_image, maskOthersLowerb, maskOthersUpperb, tmpMaskOther );
+    //cv::inRange( iImage, cv::Scalar( 230,230,230 ), cv::Scalar(255,255,255), tmpMaskOther );
+
+
+    cv::bitwise_not( tmpMaskOther, tmpMaskOther );
+    //cv::imshow("tmpMaskOther", tmpMaskOther);
+    //cv::waitKey( 0 );
+    cv::Mat tmp;
+    cv::Mat tmp_image;
+
+    tmpMask.copyTo( tmp, tmpMaskOther );
+    //cv::imshow("tmp", tmp);
+    //cv::waitKey(0);
+    //Noise reduction code ---
+    ///@todo should be user specified as it is very variable on the data collection how much color noise there is....
+    //These thresholding operations are fine as we are currently dealing with a 1-d mask for the color we were searching for
+    if ( iNumIterations > 0 )
+    {
+        for( uint32_t i = 0; i < iNumIterations; ++i )
+        {
+            cv::blur( tmp, tmp_image, cv::Size(iFilterSize, iFilterSize), cv::Point(-1, -1) );
+            cv::threshold( tmp_image, tmp, iLowerNoiseThreshold, 255, cv::THRESH_BINARY );
+        }
+
+        oMat = tmp.clone();
+    }
+    else
+    {
+        cv::threshold( tmp, tmp_image, iLowerNoiseThreshold, 255, cv::THRESH_BINARY );
+        oMat = tmp_image.clone();
+    }
+
+}
+
+void SmtImage::Threshold( const uint32_t iFilterSize,
+                          const uint32_t iNumIterations,
+                          const uint32_t iMaxNumPoints,
+                          const uint32_t iLowerNoiseThreshold,
+                          const cv::Scalar& iLeftb,
+                          const cv::Scalar& iRightb,
+                          cv::Mat& oMat)
+{
+
+        Mat tmp;
+        ThresholdToBinary(iFilterSize,
+                          iNumIterations,
+                          iLowerNoiseThreshold,
+                          iLeftb,
+                          iRightb,
+                          tmp);
+
+        FindContours( iMaxNumPoints, tmp );
 
         //cvtColor ( tmp, tmp_image, CV_GRAY2BGR );
         //cv::Mat img2 = cv::Mat::zeros( cv::Size( tmp.cols, tmp.rows ), CV_8UC3 );
@@ -526,14 +619,7 @@ void SmtImage::Threshold( const uint32_t iFilterSize,
         std::vector<cv::Mat> mergedImage = {tmp, tmp, g}; //B, G, R not R, G, B
         cv::Mat final_image;
         cv::merge( mergedImage, final_image );
-        oMat = final_image.clone();
-        //cv::imshow("tmp", img2);
-        //cv::waitKey(0);
-
-        //oPixMap = QPixmap::fromImage( QImage(img2.data, width, height,/*QImage::Format_Mono*/ QImage::Format_RGB888) );
-
-    //}
-    //delete cv_tmp;
+        oMat = final_image.clone(); 
 }
 
 ////rotate image by arbitrary degree ( very expensive)
@@ -627,6 +713,14 @@ void SmtImage::Undistort()
 
 void SmtImage::GetPixelClusters( const unsigned int iMaxNumClusters, std::vector<PixelCluster>& oGroupedPoints ) const
 {
+    //probably don't need these inits, just use current object, but being safe as this is a quick change.
+    cv::Mat tmp_mat;
+
+    FindContours(  iMaxNumClusters, tmp_mat, oGroupedPoints );
+
+
+///////////////////////////////////////////////////////////////////////////////////
+/*
     ///@TODO should do a check here to make sure the image is binary before continuing, otherwise there will probably be a opencv assert error
 
     std::vector< std::vector< cv::Point > > contours;
@@ -684,7 +778,8 @@ void SmtImage::GetPixelClusters( const unsigned int iMaxNumClusters, std::vector
             //cv::waitKey(0);
         }
     }
-
+    */
+////////////////////////////////////////////////////////////////////////
 //		for (int group = 0; group < contours.size(); ++group)
 //      {
 //			Cluster cluster;

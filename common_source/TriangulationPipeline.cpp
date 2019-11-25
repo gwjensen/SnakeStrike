@@ -208,14 +208,16 @@ void TriangulationPipeline::Threshold()
     //Leftbound = left bound, upper bound = right bound with a circular hue where the values decrease from left to right.
     fprintf( stderr, "LeftBound: %d , RightBound: %d\n", mConfig.hLeftbound, mConfig.hRightbound);
 
+    SmtImageThresholdInfo thresh_info(mConfig.maxNumPoints,
+                                      mConfig.noiseFilterSize,
+                                      mConfig.noiseIterations,
+                                      mConfig.noiseThreshold);
     ThresholdImages( mTimestepImages,
                      mBinaryImages,
                      TriangulationPipeline::Cancelled,
                      Scalar(mConfig.hLeftbound, mConfig.sLeftbound, mConfig.vLeftbound),
                      Scalar(mConfig.hRightbound, mConfig.sRightbound, mConfig.vRightbound),
-                     mConfig.noiseFilterSize,
-                     mConfig.noiseIterations,
-                     mConfig.noiseThreshold);
+                     thresh_info);
 
 
     if( mConfig.vizThresholds ){
@@ -530,24 +532,24 @@ void TriangulationPipeline::Triangulate()
     //int pixelsTriangulated = common::triangulatePixelsWithKalman( mPixelsToTrack, camMatrices, camIndexesToExcludePair, point_tracker, maxNumPoints, calculatedPoints );
 
     //Try to smooth out any very noisy 3d point calculations.
-    MultiPointSmoother3d point_tracker( mConfig.maxNumPoints );
-    for( uint32_t j = mFirstMatchTimestep; j < calculatedPoints.size(); ++j ){
-        if (mIsCancelled)
-        {
-            return;
-        }
-        std::vector< cv::Point3d > kalmanCorrected3dPoints;
-        //Setup Kalman Filters
-        if( !point_tracker.IsSetup() ){
-            //We know that the timestep being used to initialize has all of the points because when the user helps with correspondences,
-            //we get rid of any timesteps that don't have all the points for all the views.
-            point_tracker.Initialize(mFirstMatchTimestep, calculatedPoints[j] );
-        }
-        fprintf(stderr, "Update Kalman for timestep %d\n", j);
-        point_tracker.Next( calculatedPoints[j], j, kalmanCorrected3dPoints );
-        
-        calculatedPoints[j] = kalmanCorrected3dPoints;
-    }
+    //MultiPointSmoother3d point_tracker( mConfig.maxNumPoints );
+    //for( uint32_t j = mFirstMatchTimestep; j < calculatedPoints.size(); ++j ){
+    //    if (mIsCancelled)
+    //    {
+    //        return;
+    //    }
+    //    std::vector< cv::Point3d > kalmanCorrected3dPoints;
+    //    //Setup Kalman Filters
+     //   if( !point_tracker.IsSetup() ){
+    //        //We know that the timestep being used to initialize has all of the points because when the user helps with correspondences,
+    //        //we get rid of any timesteps that don't have all the points for all the views.
+    //        point_tracker.Initialize(mFirstMatchTimestep, calculatedPoints[j] );
+    //    }
+    //    fprintf(stderr, "Update Kalman for timestep %d\n", j);
+    //    point_tracker.Next( calculatedPoints[j], j, kalmanCorrected3dPoints );
+    //
+     //   calculatedPoints[j] = kalmanCorrected3dPoints;
+    //}
 
     cv::Point3d mean(0,0,0);
     for( uint32_t j = mFirstMatchTimestep; j < calculatedPoints.size(); ++j )
