@@ -234,7 +234,7 @@ bool MultiPointTracker::GetPredictedStates( const uint32_t iTimestep, std::vecto
     oPredictedLocations.clear();
     for (uint32_t i = 0; i < mKFilterPtrs.size(); ++i)
     {
-        double dT = (iTimestep - mKFilterTimestep[i])/100.0;
+        double dT = (iTimestep - mKFilterTimestep[i])/750.0;
 
         mKFilterPtrs[i]->transitionMatrix.at<double>(2) = dT;
         mKFilterPtrs[i]->transitionMatrix.at<double>(7) = dT;
