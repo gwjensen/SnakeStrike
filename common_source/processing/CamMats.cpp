@@ -98,7 +98,7 @@ void CamMats::Init( const std::string& iPathToInputFile )
     {
         cv::Mat_<double> rotation = cv::Mat::eye( 4, 4, CV_64FC1 );
         cv::Mat_<double> small_rot( rotation, cv::Rect( 0,0, 3, 3 ) );
-        cv::Mat_<double> tmp_pose = mPose[i].inv();
+        cv::Mat_<double> tmp_pose = mPose[i];
         tmp_pose( cv::Range( 0, 3 ), cv::Range( 0, 3 ) ).copyTo( small_rot );
         //std::fprintf( stderr, "\nRotation Matrix\n");
         //printMat( Rotation );
@@ -116,7 +116,7 @@ void CamMats::Init( const std::string& iPathToInputFile )
     for (int i = 0; i< num_cameras; ++i)
     {
         cv::Point3d c;
-        cv::Mat_<double> tmpC = mPose[i].inv();
+        cv::Mat_<double> tmpC = mPose[i];
         c.x = tmpC.at<double>( 0, 3 );
         c.y = tmpC.at<double>( 1, 3 );
         c.z = tmpC.at<double>( 2, 3 );
@@ -137,16 +137,16 @@ void CamMats::Init( const std::string& iPathToInputFile )
         //printMat(Rc);
         //printMat(CMat);
         //printMat(t);
-        c_coords.at<double>(0,3) = t.at<double>( 0, 0 ) ;
-        c_coords.at<double>(1,3) = t.at<double>( 1, 0 ) ;
-        c_coords.at<double>(2,3) = t.at<double>( 2, 0 ) ;
+        c_coords.at<double>(0,3) = mPose[i].at<double>( 0, 0 ) ;
+        c_coords.at<double>(1,3) = mPose[i].at<double>( 1, 0 ) ;
+        c_coords.at<double>(2,3) = mPose[i].at<double>( 2, 0 ) ;
 
         //std::fprintf( stderr,"____matrix %i\n", i );
 
         cv::Mat_<double> c_coords_inv = cv::Mat::eye( 4, 4, CV_64FC1 );
-        c_coords_inv.at<double>(0,3) = t.at<double>( 0, 0 ) * -1;
-        c_coords_inv.at<double>(1,3) = t.at<double>( 1, 0 ) * -1;
-        c_coords_inv.at<double>(2,3) = t.at<double>( 2, 0 ) * -1;
+        c_coords_inv.at<double>(0,3) = pose_inv.at<double>( 0, 0 );
+        c_coords_inv.at<double>(1,3) = pose_inv.at<double>( 1, 0 );
+        c_coords_inv.at<double>(2,3) = pose_inv.at<double>( 2, 0 );
 
         mT.push_back( c_coords );
         mTInv.push_back( c_coords_inv );
@@ -193,26 +193,42 @@ void CamMats::Init( const std::string& iPathToInputFile )
         cv::Mat_<double> m_inv_mat;
         cv::Mat_<double> m_mat;
 
-        m_inv_mat = mT[i] * mR[i] * project_homogenous_transpose * mK[i].inv() ;
+        cv::Mat_<double> embedded_k = cv::Mat::eye( 4, 4, CV_64FC1 );
+        cv::Mat_<double> small_k( embedded_k, cv::Rect( 0,0, 3, 3 ) );
+        cv::Mat_<double> tmp_copy = mK[i].inv();
+        tmp_copy.copyTo( small_k );
+        std::cout << "Embedded K" << std::endl;
+        std::cout << embedded_k << std::endl;
 
-        //MMat = iCamMatrices.K[i] * ProjectHomogenous * iCamMatrices.Tinv[i] * iCamMatrices.Rinv[i] ;
-        m_mat =  mK[i] * project_homogenous;
-        //MMat.at<double>(2,3) = 1;
-        //std::fprintf( stderr, "MMat Matrix before extrinsic mult:\n");
-        //printMat(MMat);
-        //cv::transpose( MMat, MMat );
-        //MMat = MMat * iCamMatrices.Tinv[i] * iCamMatrices.Rinv[i];
-        m_mat = m_mat * mRInv[i] * mTInv[i];
+        m_inv_mat =   mPose[i].inv() * embedded_k;
+        std::cout << "Minv" << std::endl;
+        std::cout << m_inv_mat << std::endl;
 
-        cv::transpose( m_inv_mat, m_inv_mat ); //4x3 to 3x4
-        mMInv.push_back( m_inv_mat );
-        mM.push_back( m_mat );
+        tmp_copy = mK[i];
+        tmp_copy.copyTo( small_k );
+        std::cout << "new Embedded K" << std::endl;
+        std::cout << embedded_k << std::endl;
+        m_mat = embedded_k * mPose[i]  ;
+        //m_mat = m_inv_mat.inv();
+        //m_inv_mat = mR[i] * mT[i]  ;
+        std::cout << "M" << std::endl;
+        std::cout << m_mat << std::endl;
+        std::cout << "M * Minv" << std::endl;
+        std::cout << m_mat * m_inv_mat << std::endl;
+        std::cout << "M * M.inv()" << std::endl;
+        std::cout << m_mat * m_mat.inv() << std::endl;
+
+
+        //cv::transpose( m_inv_mat, m_inv_mat ); //4x3 to 3x4
+        mMInv.push_back( m_inv_mat(cv::Range( 0, 4 ), cv::Range( 0, 3 ) ).clone() );
+        mM.push_back( m_mat(cv::Range( 0, 3 ), cv::Range( 0, 4 ) ).clone() );
 
         //create an Eigen representation of the projection matrices for use with EPVH
         Eigen::Matrix< double, 3, 4 > tmpEigen;
         opensource::cv2eigen( mM[i], tmpEigen );
         mEigenM.push_back( tmpEigen );
         //printMat( iCamMatrices.M[i] );
+
     }
     mIsInit = true;
 }

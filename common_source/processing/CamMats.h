@@ -2,6 +2,7 @@
 #define CamMats_h
 
 #include <string>
+#include <iostream>
 
 #include <opencv2/core.hpp>
 #include <eigen3/Eigen/Dense>
