@@ -19,10 +19,10 @@ This software has a lot of dependencies, so I did you a favor and created a [Doc
 
 If you want to do it yourself, check out the previous link as well as the info [HERE](https://gwjensen.github.io/SnakeStrike/usage/setup/#3-building-docker-image-to-use-as-runtime-environment).
 
-## Running the tests
+## Citing this software
+If you found this software useful please cite the following work:  
 
-Explain how to run the automated tests for this system
-
+Jensen, G., Smagt, P., Heiss, E., Straka, H., & Kohl, T. (2020). SnakeStrike: A Low-Cost Open-Source High-Speed Multi-Camera Motion Capture System. *Frontiers in Behavioral Neuroscience*, 14, 116. https://doi.org/10.3389/fnbeh.2020.00116
 
 ## Contributing
 
